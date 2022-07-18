@@ -117,8 +117,8 @@ function displayBooks(myLibrary) {
   for (let i = 0; i < myLibrary.length; i++) {
     let book = myLibrary[i];
     let row = document.createElement("tr");
-    // added class so it is easy to delete later:
-    row.classList.add("new-row");
+    // add data-row-index so it is easy to delete and select:
+    row.dataset.rowIndex = i;
     // add info about the book to the cells:
     book.listOfKeys.forEach((element) => {
       newCell = document.createElement("td");
@@ -127,16 +127,29 @@ function displayBooks(myLibrary) {
     });
     // add delete button:
     const deleteButton = document.createElement("button");
-    deleteButton.classList.add("delete");
+    // add index so it is easy to delete rows:
+    deleteButton.dataset.deleteIndex = i;
     deleteButton.innerText = "Delete";
     row.appendChild(deleteButton);
     // add created row to the table to show:
     table.appendChild(row);
   }
+  activateDeleteButtons(myLibrary);
+}
+
+function activateDeleteButtons(myLibrary) {
+  const deleteButtons = document.querySelectorAll("[data-delete-index]");
+  deleteButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      myLibrary.splice(button.dataset.deleteIndex, 1);
+      displayBooks(myLibrary);
+    });
+  });
 }
 
 function resetTable() {
-  const allRows = document.querySelectorAll(".new-row");
+  // all newly created rows have data-row-index attribute
+  const allRows = document.querySelectorAll("[data-row-index]");
   allRows.forEach((row) => {
     row.remove();
   });
