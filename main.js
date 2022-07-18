@@ -117,10 +117,12 @@ function displayBooks(myLibrary) {
     const newCell = document.createElement("td");
     const statusButton = document.createElement("button");
     statusButton.innerText = book.status();
+    statusButton.dataset.boolean = book.isRead;
     newCell.appendChild(statusButton);
     row.appendChild(newCell);
     statusButton.addEventListener("click", () => {
       book.isRead = !book.isRead;
+      statusButton.dataset.boolean = book.isRead;
       statusButton.innerText = book.status();
     });
 

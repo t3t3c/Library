@@ -4,6 +4,12 @@
   box-sizing: border-box;
 }
 
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 h1 {
   color: rebeccapurple;
 }
@@ -46,4 +52,22 @@ h1 {
 #overlay.active {
   opacity: 1;
   pointer-events: all;
+}
+
+table,
+td,
+th {
+  padding: 5px;
+  border: 1px solid black;
+}
+table {
+  margin: auto;
+}
+
+[data-boolean="true"] {
+  background: green;
+}
+
+[data-boolean="false"] {
+  background-color: red;
 }
