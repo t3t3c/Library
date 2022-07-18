@@ -1,0 +1,49 @@
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
+h1 {
+  color: rebeccapurple;
+}
+
+.modal-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #ccc;
+
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  transition: 200ms ease-in-out;
+  z-index: 10;
+}
+
+.modal-form.active {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+#overlay {
+  position: fixed;
+  opacity: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  pointer-events: none; /* our overlay won't capture pointer events */
+}
+
+#overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
