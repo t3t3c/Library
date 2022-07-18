@@ -8,7 +8,10 @@ function Book(title, author, pagesNumber, isRead) {
   this.isRead = isRead;
 }
 
-Book.prototype.listOfKeys = ["title", "author", "pagesNumber", "isRead"];
+Book.prototype.textInputs = ["title", "author", "pagesNumber"];
+Book.prototype.status = function () {
+  return this.isRead ? "READ" : "NOT READ";
+};
 
 const theHobbit = new Book("the Hobbit", "ziom", 123, true);
 const Legenda = new Book("Legenda", "ziom", 123, true);
@@ -95,21 +98,6 @@ function stopDisplayError() {
 function addBookToLibrary(newBook) {
   myLibrary.push(newBook);
 }
-//   // create a new row:
-//   let table = document.querySelector("table");
-//   let row = document.createElement("tr");
-//   newBook.listOfKeys.forEach((element) => {
-//     newCell = document.createElement("td");
-//     newCell.innerText = newBook[element];
-//     row.appendChild(newCell);
-//   });
-//   // add delete button:
-//   const deleteButton = document.createElement("button");
-//   deleteButton.classList.add("delete");
-//   deleteButton.innerText = "Delete";
-//   row.appendChild(deleteButton);
-//   table.appendChild(row);
-// }
 
 function displayBooks(myLibrary) {
   resetTable();
@@ -120,11 +108,22 @@ function displayBooks(myLibrary) {
     // add data-row-index so it is easy to delete and select:
     row.dataset.rowIndex = i;
     // add info about the book to the cells:
-    book.listOfKeys.forEach((element) => {
-      newCell = document.createElement("td");
+    book.textInputs.forEach((element) => {
+      const newCell = document.createElement("td");
       newCell.innerText = book[element];
       row.appendChild(newCell);
     });
+    // add status button:
+    const newCell = document.createElement("td");
+    const statusButton = document.createElement("button");
+    statusButton.innerText = book.status();
+    newCell.appendChild(statusButton);
+    row.appendChild(newCell);
+    statusButton.addEventListener("click", () => {
+      book.isRead = !book.isRead;
+      statusButton.innerText = book.status();
+    });
+
     // add delete button:
     const deleteButton = document.createElement("button");
     // add index so it is easy to delete rows:
