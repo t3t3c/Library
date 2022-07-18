@@ -54,6 +54,7 @@ submitButton.addEventListener("click", () => {
     const isRead = document.querySelector("#read").checked;
     const newBook = new Book(title, author, pages, isRead);
     addBookToLibrary(newBook);
+    displayBooks(myLibrary);
     resetInputs();
     stopDisplayError();
     closeModal();
@@ -93,22 +94,53 @@ function stopDisplayError() {
 
 function addBookToLibrary(newBook) {
   myLibrary.push(newBook);
-  // create a new row:
+}
+//   // create a new row:
+//   let table = document.querySelector("table");
+//   let row = document.createElement("tr");
+//   newBook.listOfKeys.forEach((element) => {
+//     newCell = document.createElement("td");
+//     newCell.innerText = newBook[element];
+//     row.appendChild(newCell);
+//   });
+//   // add delete button:
+//   const deleteButton = document.createElement("button");
+//   deleteButton.classList.add("delete");
+//   deleteButton.innerText = "Delete";
+//   row.appendChild(deleteButton);
+//   table.appendChild(row);
+// }
+
+function displayBooks(myLibrary) {
+  resetTable();
   let table = document.querySelector("table");
-  let row = document.createElement("tr");
-  newBook.listOfKeys.forEach((element) => {
-    newCell = document.createElement("td");
-    newCell.innerText = newBook[element];
-    row.appendChild(newCell);
-  });
-  // add delete button:
-  const deleteButton = document.createElement("button");
-  deleteButton.classList.add("delete");
-  deleteButton.innerText = "Delete";
-  row.appendChild(deleteButton);
-  table.appendChild(row);
+  for (let i = 0; i < myLibrary.length; i++) {
+    let book = myLibrary[i];
+    let row = document.createElement("tr");
+    // added class so it is easy to delete later:
+    row.classList.add("new-row");
+    // add info about the book to the cells:
+    book.listOfKeys.forEach((element) => {
+      newCell = document.createElement("td");
+      newCell.innerText = book[element];
+      row.appendChild(newCell);
+    });
+    // add delete button:
+    const deleteButton = document.createElement("button");
+    deleteButton.classList.add("delete");
+    deleteButton.innerText = "Delete";
+    row.appendChild(deleteButton);
+    // add created row to the table to show:
+    table.appendChild(row);
+  }
 }
 
-
+function resetTable() {
+  const allRows = document.querySelectorAll(".new-row");
+  allRows.forEach((row) => {
+    row.remove();
+  });
+}
 
 isFilled();
+displayBooks(myLibrary);
