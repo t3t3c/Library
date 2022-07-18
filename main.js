@@ -25,7 +25,7 @@ function openModal() {
   });
 }
 
-function closeModal() {
+function closeOnOverlay() {
   const overlay = document.querySelector("#overlay");
   const modal = document.querySelector(".modal-form");
   overlay.addEventListener("click", () => {
@@ -34,8 +34,15 @@ function closeModal() {
   });
 }
 
+function closeModal() {
+  const overlay = document.querySelector("#overlay");
+  const modal = document.querySelector(".modal-form");
+  modal.classList.remove("active");
+  overlay.classList.remove("active");
+}
+
 openModal();
-closeModal();
+closeOnOverlay();
 
 const submitButton = document.querySelector(".submit-button");
 
@@ -49,6 +56,7 @@ submitButton.addEventListener("click", () => {
     addBookToLibrary(newBook);
     resetInputs();
     stopDisplayError();
+    closeModal();
   } else {
     startDisplayError();
   }
@@ -93,7 +101,14 @@ function addBookToLibrary(newBook) {
     newCell.innerText = newBook[element];
     row.appendChild(newCell);
   });
+  // add delete button:
+  const deleteButton = document.createElement("button");
+  deleteButton.classList.add("delete");
+  deleteButton.innerText = "Delete";
+  row.appendChild(deleteButton);
   table.appendChild(row);
 }
+
+
 
 isFilled();
