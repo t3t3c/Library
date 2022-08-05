@@ -1,17 +1,20 @@
 let myLibrary = [];
 
-function Book(title, author, pagesNumber, isRead) {
-  // the constructor...
-  this.title = title;
-  this.author = author;
-  this.pagesNumber = pagesNumber;
-  this.isRead = isRead;
+class Book {
+  constructor(title, author, pagesNumber, isRead) {
+    // the constructor...
+    this.title = title;
+    this.author = author;
+    this.pagesNumber = pagesNumber;
+    this.isRead = isRead;
+  }
+  status() {
+    return this.isRead ? "READ" : "NOT READ";
+  }
+  get textInputs() {
+    return ["title", "author", "pagesNumber"];
+  }
 }
-
-Book.prototype.textInputs = ["title", "author", "pagesNumber"];
-Book.prototype.status = function () {
-  return this.isRead ? "READ" : "NOT READ";
-};
 
 const theHobbit = new Book("the Hobbit", "ziom", 123, true);
 const Legenda = new Book("Legenda", "ziom", 123, true);
